@@ -1,0 +1,21 @@
+<div class="registration">
+  <h2>REGISTRATION</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" action="" class="form">
+    <label for="email"> Email: </label>
+    <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="error">
+      <div *ngIf="email!.errors?.['required']"> Email is required</div>
+      <div *ngIf="email!.errors?.['pattern']"> Email is not correct</div>
+    </div>
+    <input class="input"
+           id="email"
+           type="text"
+           formControlName="email"
+           required
+           [ngClass]="{inputError: email!.invalid && (email!.dirty || email!.touched), inputSuccess: email!.valid}"/>
+    <label for="name"> Name: </label>
+    <input class="input" id="name" type="text" formControlName="name">
+    <label for="password"> Password: </label>
+    <input class="input" id="password" type="text" formControlName="password" required>
+    <button class="button" [disabled]="registrationForm.invalid" type="submit"> Create account</button>
+  </form>
+</div>
