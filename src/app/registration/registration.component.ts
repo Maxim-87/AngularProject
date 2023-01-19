@@ -1,5 +1,5 @@
-import { Component } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import {Component} from '@angular/core'
+import {FormControl, FormGroup, Validators} from '@angular/forms'
 
 export interface Address {
   city: string
@@ -13,19 +13,22 @@ export interface Address {
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent {
-  registrationForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(/com/)]),
+
+  registrationForm: FormGroup<{ password: FormControl<string | null>; name: FormControl<string | null>; email: FormControl<string | null> }> = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
     name: new FormControl(''),
-    password: new FormControl('', Validators.minLength(4)),
+    password: new FormControl('', [Validators.required, Validators.minLength(4)]),
   })
 
-  onSubmit() {
-    debugger
-    console.log('data =', this.registrationForm.value)
-    console.log('errors =', this.registrationForm.errors)
+  onSubmit(): void {
+    console.log(this.registrationForm.value)
   }
 
   get email() {
     return this.registrationForm.get('email')
+  }
+
+  get password() {
+    return this.registrationForm.get('password')
   }
 }

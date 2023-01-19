@@ -4,7 +4,7 @@
     <label class="label" for="email"> Email: </label>
     <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="error">
       <div *ngIf="email!.errors?.['required']"> Email is required</div>
-      <div *ngIf="email!.errors?.['pattern']"> Email is not correct</div>
+      <div *ngIf="email!.errors?.['email']"> Email is not correct</div>
     </div>
     <input class="input"
            id="email"
@@ -15,7 +15,16 @@
     <label class="label" for="name"> Name: </label>
     <input class="input" id="name" type="text" formControlName="name">
     <label class="label" for="password"> Password: </label>
-    <input class="input" id="password" type="text" formControlName="password" required>
+    <div *ngIf="password!.invalid && (password!.dirty || password!.touched)" class="error">
+      <div *ngIf="password!.errors?.['required']"> Password is required</div>
+      <div *ngIf="password!.errors?.['minlength']"> Password must be at least 4 characters long </div>
+    </div>
+    <input class="input"
+           id="password"
+           type="password"
+           formControlName="password"
+           required
+           [ngClass]="{inputError: password!.invalid && (password!.dirty || password!.touched), inputSuccess: password!.valid}"/>
     <button class="button" [disabled]="registrationForm.invalid" type="submit"> Create account</button>
   </form>
 </div>
