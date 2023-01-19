@@ -6,20 +6,20 @@
       <div *ngIf="email!.errors?.['required']"> Email is required</div>
       <div *ngIf="email!.errors?.['email']"> Email is not correct</div>
     </div>
-    <input class="input"
+    <input class="input borderRadius"
            id="email"
            type="text"
            formControlName="email"
            required
            [ngClass]="{inputError: email!.invalid && (email!.dirty || email!.touched), inputSuccess: email!.valid}"/>
     <label class="label" for="name"> Name: </label>
-    <input class="input" id="name" type="text" formControlName="name">
+    <input class="input borderRadius" id="name" type="text" formControlName="name">
     <label class="label" for="password"> Password: </label>
     <div *ngIf="password!.invalid && (password!.dirty || password!.touched)" class="error">
       <div *ngIf="password!.errors?.['required']"> Password is required</div>
       <div *ngIf="password!.errors?.['minlength']"> Password must be at least 4 characters long </div>
     </div>
-    <input class="input"
+    <input class="input borderRadius"
            id="password"
            type="password"
            formControlName="password"
