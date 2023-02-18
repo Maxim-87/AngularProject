@@ -1,4 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import {RegistrationComponent} from './registration.component';
 
 describe('RegistrationComponent', () => {
@@ -8,8 +10,11 @@ describe('RegistrationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        FormsModule, ReactiveFormsModule
+      ],
       declarations: [
-        RegistrationComponent
+        RegistrationComponent,
       ],
     }).compileComponents();
   });
@@ -34,6 +39,10 @@ describe('RegistrationComponent', () => {
     expect(element).toBeTruthy();
   });
 
+  it('form invalid when empty', () => {
+    expect(component.registrationForm.valid).toBeFalsy();
+  });
+
   it('should have input element with name',  () => {
     const element = fixture.debugElement.nativeElement.querySelector('#name')
     expect(element).toBeTruthy();
@@ -42,5 +51,21 @@ describe('RegistrationComponent', () => {
   it('should have input element with password',  () => {
     const element = fixture.debugElement.nativeElement.querySelector('#password')
     expect(element).toBeTruthy();
+  });
+
+  it('submitting a form emits a user', () => {
+    spyOn(component, 'onSubmit');
+
+    expect(component.registrationForm.valid).toBeFalsy();
+
+    component.registrationForm.controls['email'].setValue("test@test.com");
+    component.registrationForm.controls['name'].setValue("test");
+    component.registrationForm.controls['password'].setValue("123456789");
+
+    expect(component.registrationForm.valid).toBeTruthy();
+
+    component.onSubmit();
+
+    expect(component.onSubmit).toHaveBeenCalled();
   });
 });
